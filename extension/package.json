@@ -53,8 +53,20 @@
 		"@types/vscode": "1.99.0",
 		"typescript": "^5.9.2"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": [
+		"vscode",
+		"cli",
+		"automation",
+		"eval",
+		"terminal",
+		"ai",
+		"development"
+	],
+	"author": "yemreak",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yemreak/vscode-cli-bridge.git"
+	},
 	"type": "commonjs"
 }
