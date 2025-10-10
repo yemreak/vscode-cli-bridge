@@ -28,7 +28,7 @@ bun install -g ovsx
 export OVSX_PAT=<your-token>
 
 # Navigate to extension directory
-cd /Users/yemreak/Projects/vscode-cli-bridge/extension
+cd extension
 
 # Build and package
 bunx tsc -p ./
