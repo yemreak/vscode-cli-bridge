@@ -1,0 +1,60 @@
+{
+	"name": "cli-bridge",
+	"displayName": "CLI Bridge",
+	"description": "Control editor from terminal",
+	"version": "0.1.6",
+	"publisher": "yemreak",
+	"engines": {
+		"vscode": "^1.99.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"main": "./out/extension.js",
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"contributes": {
+		"configuration": {
+			"title": "CLI Bridge",
+			"properties": {
+				"cli-bridge.webviewPath": {
+					"type": "string",
+					"default": "src/interface/view",
+					"description": "Default path for webviews (relative to workspace root)"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "cli-bridge.status",
+				"title": "CLI Bridge: Show Full Status"
+			},
+			{
+				"command": "cli-bridge.showTerminals",
+				"title": "CLI Bridge: Show All Terminals"
+			},
+			{
+				"command": "cli-bridge.showWorkspace",
+				"title": "CLI Bridge: Show Workspace Info"
+			},
+			{
+				"command": "cli-bridge.webview",
+				"title": "CLI Bridge: Open Webview"
+			}
+		]
+	},
+	"scripts": {
+		"sync-types": "cp ../../../logic/types/vscode.ts types.ts",
+		"reinstall": "bun run sync-types && code --uninstall-extension yemreak.cli-bridge 2>/dev/null || true && trash out/ *.vsix 2>/dev/null || true && tsc -p ./ && bunx vsce package && code --install-extension cli-bridge-0.1.6.vsix --force && vscode restartExtension && echo '\n✓ Extension installed and restarted'"
+	},
+	"devDependencies": {
+		"@types/node": "^20.19.17",
+		"@types/vscode": "1.99.0",
+		"typescript": "^5.9.2"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs"
+}

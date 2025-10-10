@@ -1,0 +1,6 @@
+*.ts
+*.map
+node_modules
+bun.lock
+tsconfig.json
+.gitignore

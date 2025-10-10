@@ -1,0 +1,27 @@
+{
+  "name": "vscode-cli-bridge",
+  "version": "0.1.0",
+  "description": "Control VSCode from terminal - inline eval, diagnostics, rename",
+  "main": "vscode.ts",
+  "bin": {
+    "vscode": "./vscode.ts"
+  },
+  "scripts": {
+    "test": "bun test"
+  },
+  "keywords": [
+    "vscode",
+    "cli",
+    "automation",
+    "eval",
+    "terminal",
+    "diagnostics",
+    "ai"
+  ],
+  "author": "yemreak",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yemreak/vscode-cli-bridge.git"
+  }
+}

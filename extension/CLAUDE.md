@@ -1,0 +1,1 @@
+- Paket Json içerisinde Reinstall komutu var. Onunla extensionı indirmeyi unutma. 
