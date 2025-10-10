@@ -27,30 +27,30 @@ code --install-extension cli-bridge-*.vsix
 ### 2. Install CLI Tool
 
 ```bash
-# Using bun
-bun install -g @yemreak/vscode-cli
+# Using npm (recommended)
+npm install -g vscode-cli-bridge
 
 # Or clone and link
 git clone https://github.com/yemreak/vscode-cli-bridge
 cd vscode-cli-bridge
-chmod +x vscode.ts
-ln -sf $(pwd)/vscode.ts ~/.local/bin/vscode
+chmod +x vscode-cli.ts
+ln -sf $(pwd)/vscode-cli.ts ~/.local/bin/vscode-cli
 ```
 
 ### 3. Use It
 
 ```bash
 # Check diagnostics
-vscode diagnostics
+vscode-cli diagnostics
 
 # Rename symbol
-vscode rename oldName newName
+vscode-cli rename oldName newName
 
 # Execute code
-vscode eval "return vscode.window.activeTextEditor?.document.fileName"
+vscode-cli eval "return vscode.window.activeTextEditor?.document.fileName"
 
 # Check status
-vscode status
+vscode-cli status
 ```
 
 ## Use Cases
@@ -61,7 +61,7 @@ AI agents can debug extensions without reload:
 
 ```bash
 # AI writes code, tests immediately
-vscode eval "$(cat <<'EOF'
+vscode-cli eval "$(cat <<'EOF'
 const statusBar = vscode.window.createStatusBarItem()
 statusBar.text = "Next: waiting for request"
 statusBar.show()
@@ -77,10 +77,10 @@ Track multiple agents in status bar:
 
 ```bash
 # Agent 1 - left lane
-vscode eval "const sb1 = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left); sb1.text = 'Agent 1: coding'; sb1.show()"
+vscode-cli eval "const sb1 = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left); sb1.text = 'Agent 1: coding'; sb1.show()"
 
 # Agent 2 - right lane
-vscode eval "const sb2 = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right); sb2.text = 'Agent 2: testing'; sb2.show()"
+vscode-cli eval "const sb2 = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right); sb2.text = 'Agent 2: testing'; sb2.show()"
 ```
 
 ### Quick Refactoring
@@ -88,7 +88,7 @@ vscode eval "const sb2 = vscode.window.createStatusBarItem(vscode.StatusBarAlign
 Rename symbols without manual search:
 
 ```bash
-vscode rename askClaude askClaudeCode
+vscode-cli rename askClaude askClaudeCode
 # → {"renamed":true,"files":15}
 ```
 
@@ -113,18 +113,18 @@ Same pattern works for:
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `vscode eval <code>` | Execute code in VSCode | `vscode eval "return vscode.version"` |
-| `vscode diagnostics` | Get all errors/warnings | `vscode diagnostics` |
-| `vscode rename <old> <new>` | Rename symbol | `vscode rename oldName newName` |
-| `vscode status` | Check editor state | `vscode status` |
-| `vscode restartExtension` | Restart CLI Bridge | `vscode restartExtension` |
+| `vscode-cli eval <code>` | Execute code in VSCode | `vscode-cli eval "return vscode.version"` |
+| `vscode-cli diagnostics` | Get all errors/warnings | `vscode-cli diagnostics` |
+| `vscode-cli rename <old> <new>` | Rename symbol | `vscode-cli rename oldName newName` |
+| `vscode-cli status` | Check editor state | `vscode-cli status` |
+| `vscode-cli restartExtension` | Restart CLI Bridge | `vscode-cli restartExtension` |
 
 ## Examples
 
 ### Status Bar Control
 
 ```bash
-vscode eval "$(cat <<'EOF'
+vscode-cli eval "$(cat <<'EOF'
 const statusBar = vscode.window.createStatusBarItem()
 statusBar.text = "🔥 Custom Status"
 statusBar.show()
@@ -135,7 +135,7 @@ EOF
 ### Open Terminal
 
 ```bash
-vscode eval "$(cat <<'EOF'
+vscode-cli eval "$(cat <<'EOF'
 const terminal = vscode.window.createTerminal('AI Terminal')
 terminal.show()
 terminal.sendText('echo "Hello from AI"')
@@ -146,7 +146,7 @@ EOF
 ### Get Active File
 
 ```bash
-vscode eval "return vscode.window.activeTextEditor?.document.fileName"
+vscode-cli eval "return vscode.window.activeTextEditor?.document.fileName"
 # → "/Users/user/project/file.ts"
 ```
 
@@ -167,7 +167,7 @@ statusBar.show()
 EOF
 
 # Test immediately
-vscode eval "$(cat test.ts)"
+vscode-cli eval "$(cat test.ts)"
 
 # Fix and retry (no reload needed)
 ```
