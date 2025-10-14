@@ -1,13 +1,15 @@
 {
-  "name": "vscode-cli-bridge",
-  "version": "0.1.0",
-  "description": "Control VSCode from terminal - inline eval, diagnostics, rename",
-  "main": "vscode-cli.ts",
+  "name": "@yemreak/vscode-cli",
+  "version": "1.0.0",
+  "description": "Control VSCode from terminal - For your AI agent",
+  "main": "vscode.ts",
   "bin": {
-    "vscode-cli": "./vscode-cli.ts"
+    "vscode": "./vscode.ts"
   },
+  "type": "module",
   "files": [
-    "vscode-cli.ts",
+    "vscode.ts",
+    "src/**/*.ts",
     "README.md",
     "LICENSE"
   ],
@@ -20,10 +22,11 @@
     "automation",
     "eval",
     "terminal",
-    "diagnostics",
-    "ai",
-    "development",
-    "debugging"
+    "ai-agent",
+    "vibe-coding",
+    "clarityos",
+    "bridge",
+    "development"
   ],
   "author": "yemreak",
   "license": "Apache-2.0",
@@ -35,5 +38,8 @@
   "bugs": "https://github.com/yemreak/vscode-cli-bridge/issues",
   "engines": {
     "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "bun": ">=1.0.0"
   }
 }

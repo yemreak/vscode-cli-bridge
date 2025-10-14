@@ -1,4 +1,4 @@
-export const AVAILABLE_METHODS = ['status', 'eval', 'restartExtension', 'webview', 'registerConfig', 'unregisterConfig', 'listConfigs', 'subscribe', 'unsubscribe', 'listSubscribers'] as const
+export const AVAILABLE_METHODS = ['status', 'eval', 'restartExtension', 'webview', 'registerConfig', 'unregisterConfig', 'listConfigs', 'subscribe', 'unsubscribe', 'listSubscribers', 'getOutput'] as const
 
 export type AvailableMethods = (typeof AVAILABLE_METHODS)[number]
 
@@ -13,6 +13,7 @@ export type JsonRpcRequest =
 	| { method: 'subscribe'; params: { url: string } }
 	| { method: 'unsubscribe'; params: { url: string } }
 	| { method: 'listSubscribers'; params?: {} }
+	| { method: 'getOutput'; params?: { lines?: number } }
 
 export type JsonRpcResponse =
 	| { ok: true; result: StatusResult }

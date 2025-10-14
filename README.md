@@ -1,182 +1,117 @@
-# VSCode CLI Bridge
+# VSCode CLI
 
-Control VSCode from terminal - inline eval, diagnostics, rename, and more.
+Control VSCode from terminal. Built for AI agents.
 
-## Features
-
-- **Inline Eval**: Execute JavaScript/TypeScript code directly in VSCode context
-- **Diagnostics**: Get errors/warnings from your codebase
-- **Rename**: Refactor symbols across your project
-- **Status**: Check editor state
-- **Fast Feedback**: No extension reload needed - instant test loop
-
-## Quick Start
-
-### 1. Install Extension
-
-Install the CLI Bridge extension from OpenVSX:
+## Installation
 
 ```bash
-# Install from OpenVSX
-code --install-extension yemreak.cli-bridge
-
-# Or from VSIX file
-code --install-extension cli-bridge-*.vsix
+npm install -g @yemreak/vscode-cli
 ```
 
-### 2. Install CLI Tool
-
+Or with Bun:
 ```bash
-# Using npm (recommended)
-npm install -g vscode-cli-bridge
-
-# Or clone and link
-git clone https://github.com/yemreak/vscode-cli-bridge
-cd vscode-cli-bridge
-chmod +x vscode-cli.ts
-ln -sf $(pwd)/vscode-cli.ts ~/.local/bin/vscode-cli
-```
-
-### 3. Use It
-
-```bash
-# Check diagnostics
-vscode-cli diagnostics
-
-# Rename symbol
-vscode-cli rename oldName newName
-
-# Execute code
-vscode-cli eval "return vscode.window.activeTextEditor?.document.fileName"
-
-# Check status
-vscode-cli status
-```
-
-## Use Cases
-
-### AI-Powered Development
-
-AI agents can debug extensions without reload:
-
-```bash
-# AI writes code, tests immediately
-vscode-cli eval "$(cat <<'EOF'
-const statusBar = vscode.window.createStatusBarItem()
-statusBar.text = "Next: waiting for request"
-statusBar.show()
-EOF
-)"
-```
-
-**Pattern**: Write → Eval → Test → Fix → Repeat (fast feedback loop)
-
-### Multi-Agent Workflows
-
-Track multiple agents in status bar:
-
-```bash
-# Agent 1 - left lane
-vscode-cli eval "const sb1 = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left); sb1.text = 'Agent 1: coding'; sb1.show()"
-
-# Agent 2 - right lane
-vscode-cli eval "const sb2 = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right); sb2.text = 'Agent 2: testing'; sb2.show()"
-```
-
-### Quick Refactoring
-
-Rename symbols without manual search:
-
-```bash
-vscode-cli rename askClaude askClaudeCode
-# → {"renamed":true,"files":15}
-```
-
-## Architecture
-
-```
-Terminal (CLI)  →  TCP (port 9485)  →  VSCode Extension
-     ↓                                        ↓
-JSON-RPC Request                       Eval in VSCode API
-     ↓                                        ↓
-JSON Response    ←                      Result/Error
-```
-
-**Pattern**: CLI Bridge - platform control via eval interface
-
-Same pattern works for:
-- Chrome: `chrome-cdp eval`
-- Hammerspoon: `hammerspoon eval`
-- MacOS automation
-
-## Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `vscode-cli eval <code>` | Execute code in VSCode | `vscode-cli eval "return vscode.version"` |
-| `vscode-cli diagnostics` | Get all errors/warnings | `vscode-cli diagnostics` |
-| `vscode-cli rename <old> <new>` | Rename symbol | `vscode-cli rename oldName newName` |
-| `vscode-cli status` | Check editor state | `vscode-cli status` |
-| `vscode-cli restartExtension` | Restart CLI Bridge | `vscode-cli restartExtension` |
-
-## Examples
-
-### Status Bar Control
-
-```bash
-vscode-cli eval "$(cat <<'EOF'
-const statusBar = vscode.window.createStatusBarItem()
-statusBar.text = "🔥 Custom Status"
-statusBar.show()
-EOF
-)"
-```
-
-### Open Terminal
-
-```bash
-vscode-cli eval "$(cat <<'EOF'
-const terminal = vscode.window.createTerminal('AI Terminal')
-terminal.show()
-terminal.sendText('echo "Hello from AI"')
-EOF
-)"
-```
-
-### Get Active File
-
-```bash
-vscode-cli eval "return vscode.window.activeTextEditor?.document.fileName"
-# → "/Users/user/project/file.ts"
-```
-
-## Development
-
-Extension development is faster with inline eval:
-
-**Traditional**: Code → Package → Install → Test → Uninstall → Repeat (slow)
-
-**With CLI Bridge**: Code → Eval → Test → Fix (fast)
-
-```bash
-# Write code
-cat > test.ts <<'EOF'
-const statusBar = vscode.window.createStatusBarItem()
-statusBar.text = "Testing..."
-statusBar.show()
-EOF
-
-# Test immediately
-vscode-cli eval "$(cat test.ts)"
-
-# Fix and retry (no reload needed)
+bun install -g @yemreak/vscode-cli
 ```
 
 ## Requirements
 
-- Bun runtime
-- VSCode or Cursor
-- CLI Bridge extension
+**ClarityOS Extension v1.0.0+**: Install [ClarityOS](https://marketplace.cursorapi.com/items/?itemName=yemreak.clarityos)
+
+```bash
+code --install-extension yemreak.clarityos
+```
+
+ClarityOS runs a TCP server (port 9485) that this CLI connects to.
+
+## For Your AI Agent
+
+Tell your AI assistant to use these commands to control VSCode:
+
+```bash
+# Get help
+vscode --help
+
+# Execute code in VSCode context
+vscode eval "return vscode.window.activeTextEditor?.document.fileName"
+
+# Get system status
+vscode status
+
+# Read output logs
+vscode output 50
+
+# Open webview
+vscode webview conversation
+
+# Get diagnostics
+vscode diagnostics
+
+# Rename symbol
+vscode rename oldName newName
+
+# Register config
+vscode registerConfig statusbar ~/config.ts
+```
+
+## Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `vscode eval <code>` | Execute JavaScript with VSCode API access |
+| `vscode status` | System status (terminals, editor, workspace) |
+| `vscode output [lines]` | Read output panel logs |
+| `vscode diagnostics` | Get all diagnostics (errors, warnings) |
+| `vscode rename <old> <new>` | Rename symbol across project |
+| `vscode webview <name>` | Open HTML panel |
+| `vscode registerConfig <name> <path>` | Register dynamic config |
+| `vscode unregisterConfig <name>` | Unregister config |
+| `vscode listConfigs` | List registered configs |
+| `vscode subscribe <url>` | Subscribe to events (webhook) |
+| `vscode unsubscribe <url>` | Unsubscribe from events |
+| `vscode listSubscribers` | List subscribers |
+| `vscode restartExtension` | Restart extension host |
+
+## Why?
+
+Enables AI agents to:
+- Execute code in VSCode context
+- Read editor state and diagnostics
+- Control editor from terminal
+- Open and manage panels
+- Access full VSCode API
+
+## How It Works
+
+```
+Terminal → vscode CLI → TCP (port 9485) → ClarityOS Extension → VSCode API
+```
+
+1. ClarityOS extension runs TCP server
+2. CLI sends JSON-RPC requests
+3. Extension executes in VSCode context
+4. Results returned to terminal
+
+## Examples
+
+**Get active file**:
+```bash
+vscode eval "return vscode.window.activeTextEditor?.document.fileName"
+```
+
+**Execute with logging**:
+```bash
+vscode eval "console.log('test'); return 'done'"
+```
+
+**Check diagnostics**:
+```bash
+vscode diagnostics
+```
+
+**Read output**:
+```bash
+vscode output 100
+```
 
 ## License
 
