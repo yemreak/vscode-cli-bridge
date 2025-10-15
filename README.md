@@ -15,13 +15,13 @@ bun install -g @yemreak/vscode-cli
 
 ## Requirements
 
-**ClarityOS Extension v1.0.0+**: Install [ClarityOS](https://marketplace.cursorapi.com/items/?itemName=yemreak.clarityos)
+**ClarityOS Bridge v0.1.0+**: Install from [OpenVSX](https://open-vsx.org/extension/yemreak/clarityos-bridge)
 
 ```bash
-code --install-extension yemreak.clarityos
+code --install-extension yemreak.clarityos-bridge
 ```
 
-ClarityOS runs a TCP server (port 9485) that this CLI connects to.
+ClarityOS Bridge runs a TCP server (port 9485) that this CLI connects to.
 
 ## For Your AI Agent
 
@@ -83,10 +83,10 @@ Enables AI agents to:
 ## How It Works
 
 ```
-Terminal → vscode CLI → TCP (port 9485) → ClarityOS Extension → VSCode API
+Terminal → vscode CLI → TCP (port 9485) → ClarityOS Bridge → VSCode API
 ```
 
-1. ClarityOS extension runs TCP server
+1. ClarityOS Bridge runs TCP server
 2. CLI sends JSON-RPC requests
 3. Extension executes in VSCode context
 4. Results returned to terminal
