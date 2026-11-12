@@ -1,5 +1,7 @@
 # VSCode CLI
 
+> **[optionOS](https://optionos.app/)** — Show AI what you mean. Stay in your flow. <!-- optionos -->
+
 Control VSCode from terminal. Built for AI agents.
 
 ## Installation
